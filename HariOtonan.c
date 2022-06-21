@@ -24,7 +24,7 @@ void current_time(struct data *today);
 int main(){
     struct data lahir, today, waktu1;
     struct index otonan;
-    int ulang;
+    int ulang, tukar;
     char wuku[31][15]={"Tolu", "Gumbreg", "Wariga", "Warigadian", "Julungwangi", "Sungsang", "Dunggulan", "Kuningan", "Langkir", "Medangsia", "Pujut", "Pahang", "Klurut", "Merakih", "Tambir", "Medangkungan", "Matal", "Uye", "Menail", "Prangbakat", "Bala", "Ugu", "Wayang", "Klau", "Dukut", "Watugunung", "Sinta", "Landep", "Ukir", "Kulantir", "Tolu"};
     char saptawara[8][10] = {"Redite", "Some", "Anggara", "Buda", "Wrespati", "Sukra", "Saniscara", "Redite"};
     char pancawara[6][10] = {"Kliwon", "Umanis", "Paing", "Pon", "Wage", "Kliwon"};
@@ -57,13 +57,19 @@ int main(){
         printf("Saptawara  : %s\n", saptawara[otonan.sapta]);
         printf("Pancawara  : %s\n", pancawara[otonan.panca]);
         printf("Triwara    : %s\n", triwara[otonan.tri]);
-        printf("");
+        tukar = swapTanggal(lahir, today);
+        printf("Otonan Anda %d hari lagi\n", 210-totalhari(lahir,tukar,today)%210);
         printf("--------------------------------------------------------------\n");
-        printf("[1] Ulangi Program\n");
-        printf("[2] Keluar Program\n");
-        printf("Pilihan : ");
-        scanf("%d", &ulang);
-    }while(ulang==1);
+        do{
+            printf("[1] Ulangi Program\n");
+            printf("[2] Akhiri Program\n");
+            printf("Pilihan : ");
+            scanf("%d", &ulang);
+            if(ulang!=1&&ulang!=2){
+                printf("Pihan Anda tidak tersedia!\n");
+            }
+        }while(ulang!=1&&ulang!=2);
+    }while(ulang!=2);
     return 0;
 }
 
@@ -117,8 +123,7 @@ int totalhari(struct data waktu, int tukar, struct data waktu1){
                 waktu.bulan = 1;
                 waktu.tahun++;
         }
-    }
-    printf("\n\n SELISIH : %d\n\n", day);
+    };
     return day;
 }
 
@@ -136,7 +141,6 @@ int datecheck(struct data lahir, struct data today){
 void perhitungan(struct index *otonan, struct data lahir, struct data waktu1){
     int tukar = swapTanggal(lahir, waktu1);
     int selisih = totalhari(lahir, tukar, waktu1);
-    printf("\n\n Tanggal lahir : %d %d %d\n\n", lahir.tanggal, lahir.bulan, lahir.tahun);
     if(tukar==0){
         otonan->wuku = 29 - (selisih/7)%30;
         otonan->sapta = 7 - selisih%7;
