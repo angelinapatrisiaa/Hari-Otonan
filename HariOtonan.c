@@ -59,6 +59,8 @@ int main(){
         printf("Triwara    : %s\n", triwara[otonan.tri]);
         tukar = swapTanggal(lahir, today);
         printf("Otonan Anda %d hari lagi\n", 210-totalhari(lahir,tukar,today)%210);
+        printf("Umur Anda %d oton\n", totalhari(lahir, tukar, today)/210);
+        printf("Anda lahir %d hari yang lalu\n", totalhari(lahir, tukar, today));
         printf("--------------------------------------------------------------\n");
         do{
             printf("[1] Ulangi Program\n");
@@ -85,14 +87,18 @@ void current_time(struct data *waktu){
 
 int swapTanggal(struct data waktu, struct data waktu1){
     int tukar = 0;
-    if((waktu.bulan>=waktu1.bulan)&&(waktu.tahun>=waktu1.tahun) == 1){
-        if(waktu.bulan==waktu1.bulan){
-            if(waktu.tanggal>=waktu1.tanggal){
-                tukar = 1;
+    if(waktu.tahun>waktu1.tahun){
+        tukar = 1;
+    }else{
+        if((waktu.bulan>=waktu1.bulan)&&(waktu.tahun>=waktu1.tahun) == 1){
+            if(waktu.bulan==waktu1.bulan){
+                if(waktu.tanggal>=waktu1.tanggal){
+                    tukar = 1;
 
+                }
+            }else{
+                    tukar = 1;
             }
-        }else{
-                tukar = 1;
         }
     }
     return tukar;
@@ -106,6 +112,9 @@ int totalhari(struct data waktu, int tukar, struct data waktu1){
         waktu1 = waktu;
         waktu = temp;
     }
+    printf("%d\n",tukar);
+    printf("%d %d %d\n", waktu.tanggal, waktu.bulan, waktu.tahun);
+        printf("%d %d %d\n", waktu1.tanggal, waktu1.bulan, waktu1.tahun);
     int bulan[12][2] = {{31,31},{28,29},{31,31},{30,30},{31,31},{30,30},{31,31},{31,31},{30,30},{31,31},{30,30},{31,31}};
     while(((waktu.tanggal==waktu1.tanggal)&&(waktu.bulan==waktu1.bulan)&&(waktu.tahun==waktu1.tahun)) == 0){
         if((waktu.tahun%400 == 0) || (waktu.tahun%4==0)&&(waktu.tahun%100!=0)){
